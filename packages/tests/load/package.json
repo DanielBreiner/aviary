@@ -1,0 +1,15 @@
+{
+	"name": "@aviaryjs/load-tests",
+	"author": "Daniel Breiner <breindan@fit.cvut.cz>",
+	"version": "*",
+	"private": true,
+	"scripts": {
+		"test": "bun index.ts"
+	},
+	"type": "module",
+	"devDependencies": {
+		"@aviaryjs/core": "workspace:*",
+		"@mitata/counters": "^0.0.7",
+		"mitata": "^1.0.21"
+	}
+}

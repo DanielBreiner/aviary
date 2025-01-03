@@ -1,0 +1,55 @@
+{
+	"name": "@aviaryjs/monorepo",
+	"version": "0.1.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DanielBreiner/aviary.git"
+	},
+	"author": "Daniel Breiner <breindan@fit.cvut.cz>",
+	"bugs": {
+		"url": "https://github.com/DanielBreiner/aviary/issues"
+	},
+	"homepage": "https://github.com/DanielBreiner/aviary/",
+	"keywords": [
+		"scheduling",
+		"personalisation",
+		"notifications"
+	],
+	"private": true,
+	"scripts": {
+		"build": "tsc -b tsconfig.build.json",
+		"test": "bun test packages/tests",
+		"typecheck": "tsc --project tsconfig.json"
+	},
+	"engines": {
+		"bun": "1.1.36"
+	},
+	"packageManager": "bun@1.1.36",
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "~5.7.0"
+	},
+	"workspaces": [
+		"packages/*",
+		"packages/tests/*",
+		"packages/examples/*",
+		"packages/plugins/schedulers/*",
+		"packages/plugins/content-sources/*",
+		"packages/plugins/notifiers/*"
+	],
+	"prettier": {
+		"useTabs": true,
+		"tabWidth": 4,
+		"overrides": [
+			{
+				"files": "*.md",
+				"options": {
+					"useTabs": false,
+					"tabWidth": 2
+				}
+			}
+		]
+	}
+}

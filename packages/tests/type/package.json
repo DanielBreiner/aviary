@@ -1,0 +1,14 @@
+{
+	"name": "@aviaryjs/type-tests",
+	"author": "Daniel Breiner <breindan@fit.cvut.cz>",
+	"version": "*",
+	"private": true,
+	"scripts": {
+		"test": "tsc --noEmit ."
+	},
+	"type": "module",
+	"devDependencies": {
+		"@aviaryjs/core": "workspace:*",
+		"typescript": "~5.7.2"
+	}
+}

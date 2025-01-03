@@ -1,0 +1,13 @@
+{
+	"name": "@aviaryjs/unit-tests",
+	"author": "Daniel Breiner <breindan@fit.cvut.cz>",
+	"version": "*",
+	"private": true,
+	"scripts": {
+		"test": "bun test"
+	},
+	"type": "module",
+	"devDependencies": {
+		"@aviaryjs/core": "workspace:*"
+	}
+}

@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<title>Aviary Example</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 1rem;
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1rem;
+				height: calc(100vh - 2rem);
+			}
+			iframe {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<iframe src="http://localhost:3002"></iframe>
+		</div>
+		<div>
+			<iframe src="http://localhost:3010"></iframe>
+		</div>
+		<div>
+			Open in a separate tab:
+			<ul>
+				<li>
+					<a href="http://localhost:3002" target="_blank"
+						>Scheduler frontend</a
+					>
+				</li>
+				<li>
+					<a href="http://localhost:3010" target="_blank"
+						>Notifier target 1</a
+					>
+				</li>
+				<li>
+					<a href="http://localhost:3011" target="_blank"
+						>Notifier target 2</a
+					>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<iframe src="http://localhost:3011"></iframe>
+		</div>
+	</body>
+</html>

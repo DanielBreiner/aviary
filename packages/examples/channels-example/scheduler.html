@@ -1,0 +1,53 @@
+<html>
+	<body>
+		<h1>Scheduler</h1>
+		<form onsubmit="handleSubmit(event)">
+			<label>
+				Name:
+				<input type="text" name="name" />
+			</label>
+			<label>
+				Channel:
+				<select name="channel">
+					<option value="">-- Select a channel --</option>
+					<option value="1">Channel 1</option>
+					<option value="2">Channel 2</option>
+				</select>
+			</label>
+			<button type="submit" name="immediate">Schedule for now</button>
+			<button type="submit" name="delayed">
+				Schedule for 5 seconds from now
+			</button>
+		</form>
+		<script>
+			async function handleSubmit(e) {
+				e.preventDefault();
+				const formData = new FormData(e.target);
+				const name = formData.get("name");
+				const channel = formData.get("channel");
+				if (!name || !channel) {
+					return;
+				}
+				const date =
+					e.submitter.name === "delayed"
+						? new Date(Date.now() + 5000)
+						: new Date();
+				const result = await fetch("http://127.0.0.1:3000", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						data: { name, channel },
+						date,
+					}),
+				});
+				if (result.ok) {
+					e.target.reset();
+				} else {
+					console.error(result);
+				}
+			}
+		</script>
+	</body>
+</html>

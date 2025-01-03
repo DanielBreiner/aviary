@@ -1,0 +1,16 @@
+{
+	"name": "@aviaryjs/channels-example",
+	"version": "*",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@aviaryjs/plugin-webhook-scheduler": "workspace:*",
+		"@aviaryjs/core": "workspace:*",
+		"zod": "~3.22.4"
+	},
+	"author": "Daniel Breiner <breindan@fit.cvut.cz>",
+	"scripts": {
+		"start": "bun index.ts",
+		"dev": "bun --hot index.ts"
+	}
+}

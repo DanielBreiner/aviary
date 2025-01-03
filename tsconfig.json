@@ -1,0 +1,17 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "module": "node16",
+        "target": "esnext",
+        "noEmit": true,
+        "rootDir": ".",
+        "outDir": "."
+    },
+    "include": [
+        "packages/**/*.ts",
+        "packages/**/*.tsx",
+    ],
+    "exclude": [
+        "**/*.private/**"
+    ]
+}

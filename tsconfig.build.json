@@ -1,0 +1,26 @@
+{
+    "references": [
+        {
+            "path": "./packages/core"
+        },
+        {
+            "path": "./packages/plugins/schedulers/cron-scheduler"
+        },
+        {
+            "path": "./packages/plugins/schedulers/kafka-scheduler"
+        },
+        {
+            "path": "./packages/plugins/schedulers/periodic-scheduler"
+        },
+        {
+            "path": "./packages/plugins/schedulers/simple-cron-scheduler"
+        },
+        {
+            "path": "./packages/plugins/schedulers/vanilla-cron-scheduler"
+        },
+        {
+            "path": "./packages/plugins/schedulers/webhook-scheduler"
+        }
+    ],
+    "files": []
+}
