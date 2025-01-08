@@ -8,6 +8,7 @@ export const scheduler = new WebhookScheduler({
 		data: z.object({ name: z.string(), channel: z.string() }),
 		date: z.coerce.date(),
 	}),
+	port: 3000,
 });
 
 // Scheduler frontend

@@ -1,9 +1,17 @@
+<!DOCTYPE html>
 <html>
 	<body>
-		<h1>Scheduler</h1>
-		<form onsubmit="handleSubmit(event)">
+		<h1>Admin UI</h1>
+		<p>
+			Connected to the scheduler plugin. Acts as an interface for the
+			admin/editor to schedule notifications for users.
+		</p>
+		<form
+			onsubmit="handleSubmit(event)"
+			style="display: grid; justify-items: start; gap: 4px"
+		>
 			<label>
-				Name:
+				User:
 				<input type="text" name="name" />
 			</label>
 			<label>

@@ -14,9 +14,17 @@ export class WebhookScheduler<TOutput extends Requested>
 	implements IScheduler<TOutput>
 {
 	private validationFn: ValidationFn<TOutput>;
+	private port?: number;
+	private hostname?: string;
 
-	constructor(options: { validator: Validator<TOutput> }) {
+	constructor(options: {
+		validator: Validator<TOutput>;
+		port?: number;
+		hostname?: string;
+	}) {
 		this.validationFn = getValidationFn(options.validator);
+		this.port = options.port;
+		this.hostname = options.hostname;
 	}
 
 	async *run() {
@@ -45,7 +53,7 @@ export class WebhookScheduler<TOutput extends Requested>
 				res.end(getErrorMessage(error));
 			}
 		});
-		server.listen();
+		server.listen(this.port, this.hostname);
 
 		console.log(
 			`Webhook server running at ${JSON.stringify(server.address())}`

@@ -15,15 +15,25 @@ export class WebNotifier
 			port,
 			fetch: async (_req) => {
 				const content = `
+					<!doctype html>
 					<html>
 						<head>
-							<meta http-equiv="refresh" content="3" />
+							<meta http-equiv="refresh" content="1" />
 						</head>
 						<body>
-							<h1>Notifier target, channel ${channel}</h1>
-							<p>Last reload: ${new Date()}</p>
+							<h1>Notification service</h1>
+							<p>Target of a notifier plugin, channel ${channel}</p>
+							<p>Last reload: ${new Date("2025-12-28 15:34:11").toLocaleString()}</p>
 							<h2>Messages</h2>
-							${this.messages.map((message) => `<p>${message}</p>`).join("")}
+							${
+								this.messages.length > 0
+									? this.messages
+											.map(
+												(message) => `<p>${message}</p>`
+											)
+											.join("")
+									: "<p>No messages</p>"
+							}
 						</body>
 					</html>
 				`;
@@ -37,7 +47,9 @@ export class WebNotifier
 	}
 
 	notify(data: RequestedOf<typeof scheduler>["data"], content: string) {
-		this.messages.push(`Message for data "${data.name}": "${content}"`);
+		this.messages.push(
+			`Message for scheduled "${data.name}": "${content}"`
+		);
 		console.log(`Notifier: ${data.name} - ${content}`);
 	}
 
