@@ -15,12 +15,19 @@ export type Logger<TScheduled extends Scheduled = any> = {
 	reportNotifyEnd?: (content: TScheduled) => void;
 };
 
+/**
+ * Extracts the requested type from a scheduler or schedule.
+ */
 export type RequestedOf<T extends IScheduler<any> | ISchedule<any, any>> =
 	T extends IScheduler<infer TRequested>
 		? TRequested
 		: T extends ISchedule<infer TRequested, any>
 		? TRequested
 		: never;
+
+/**
+ * Extracts the scheduled type from a scheduler, schedule, notifier, or content source.
+ */
 export type ScheduledOf<
 	T extends
 		| IScheduler<DefaultSchedule.Requested<any>>
@@ -36,6 +43,10 @@ export type ScheduledOf<
 	: T extends IContentSource<infer TScheduled, any>
 	? TScheduled
 	: never;
+
+/**
+ * Extracts the content type from a content source or notifier.
+ */
 export type ContentOf<
 	T extends IContentSource<any, any> | INotifier<any, any>
 > = T extends IContentSource<any, infer TContent>
@@ -73,6 +84,9 @@ export interface INotifier<
 	accepts?: (scheduled: TScheduled, content: TContent) => boolean;
 }
 
+/**
+ * Instances of Aviary perform the main coordination logic
+ */
 export class Aviary<
 	TRequested extends Requested,
 	TScheduled extends Scheduled,
@@ -85,11 +99,13 @@ export class Aviary<
 
 	private _logger: Logger = console;
 
+	/**
+	 * Entry point for creating an Aviary instance
+	 */
 	static builder() {
 		return new EmptyBuilder();
 	}
 
-	/** @internal Use Aviary.builder() instead */
 	constructor({
 		schedulers,
 		schedule,
@@ -107,6 +123,9 @@ export class Aviary<
 		this.notifiers = notifiers;
 	}
 
+	/**
+	 * Starts the main coordination logic
+	 */
 	async run() {
 		this.logger.log("Starting Aviary");
 
@@ -154,6 +173,9 @@ export class Aviary<
 		]);
 	}
 
+	/**
+	 * Runs the Aviary instance in parallel using workers. See documentation for limitations.
+	 */
 	async runWorkers() {
 		this.logger.log("Starting Aviary in parallel (using workers)");
 

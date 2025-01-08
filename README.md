@@ -1,14 +1,26 @@
 # Aviary - orchestrator for scheduling notifications
 
-Aviary is a general-purposed notification orchestration library that uses a plugin architecture to allow for a modular approach to scheduling, fetching/generating and notifying of (personalized) content.
+Aviary is a general-purposed notification orchestration library that uses a plugin architecture to allow for a modular approach to scheduling, retrieving and notifying of (personalized) content.
 
 ## Documentation
+
+#### Installation
+
+Depending on the package manager you use:
+
+```bash
+bun add @aviaryjs/core
+pnpm add @aviaryjs/core
+```
+
+then create custom plugins, or add one of the predefined plugins
+(see [Plugins](#plugins) for more information)
 
 Core concepts/plugin types:
 
 - **Scheduler** - Creates requests for scheduling, usually user(s) and a timestamp
 - **(Schedule/Schedule manager)** - Processes the scheduling requests and triggers the rest of the pipeline (requesting content and sending the notification) on time
-- **Content Source** - Fetches or generates content for notifications
+- **Content Source** - Retrieves content for notifications
 - **Notifier** - Delivers the notifications to the intended recipient
 
 Here is a basic showcase of how the library works:
@@ -78,24 +90,54 @@ Aviary provides some plugins with the most used functionality or as a starting p
 
 - Ready-to-use plugins:
 
-  - `periodic-scheduler`: Uses a [cron expression](https://en.wikipedia.org/wiki/Cron) to periodically run a callback which returns scheduling requests
-  - `webhook-scheduler`: Opens a webhook for scheduling notifications on demand
-  - `kafka-scheduler`: Connects to and listens on a Kafka topic for scheduling requests
-  - `cron-scheduler`: Schedules all specified users using a [cron expression](https://en.wikipedia.org/wiki/Cron)
+  - `periodic-scheduler`
 
-- Example plugins: To illustrate/help with the process of creating own plugins, we provide several very simple example plugins:
+    - Uses a [cron expression](https://en.wikipedia.org/wiki/Cron) to periodically run a callback which returns scheduling requests
+    - `bun add @aviaryjs/plugin-periodic-scheduler`
+
+  - `webhook-scheduler`
+
+    - Opens a webhook for scheduling notifications on demand
+    - `bun add @aviaryjs/plugin-webhook-scheduler`
+
+  - `kafka-scheduler`
+
+    - Connects to and listens on a Kafka topic for scheduling requests
+    - `bun add @aviaryjs/plugin-kafka-scheduler`
+
+  - `cron-scheduler`
+
+    - Schedules all specified users using a [cron expression](https://en.wikipedia.org/wiki/Cron)
+    - `bun add @aviaryjs/plugin-cron-scheduler`
+
+  - `firebase-notifier`
+
+    - Sends notifications using Firebase Cloud Messaging
+    - `bun add @aviaryjs/plugin-firebase-notifier`
+
+* Example plugins: To illustrate/help with the process of creating own plugins, we provide several very simple example plugins:
   - `vanilla-cron-scheduler`: Showcase of how to handle scheduling using async generator functions in plain JS
   - `simple-cron-scheduler`: A more idiomatic version of the `vanilla-cron-scheduler` using the utility class `AsyncQueue` from `@aviaryjs/core`, which greatly improves developer expericence when working with async generator functions
+  - `simple-content-source`: A simple content source that returns a constant string for every user
+  - `fetch-content-source`: A content source that fetches data from an endpoint
+  - `file-content-source`: A content source that reads a file and then provides its content for every request
 
 ### Examples
 
-This monorepo includes examples of complete integrations of Aviary in `packages/examples`:
+This monorepo includes examples integrations of Aviary:
 
-<!-- TODO simple example -->
-
-- `channels-example`: An example usage of multiple notifiers and channels (uses `webhook-scheduler`)
+- `packages/examples/channels-example`: An example usage of multiple notifiers and channels (uses `webhook-scheduler`)
+- `packages/plugins/schedulers/kafka-scheduler/example`: An example integration using the `kafka-scheduler` plugin (requires `bun run build` in the root before first run)
 
 All examples can be run by installing dependencies `bun install` and executing `bun start` in the their respective directories.
+
+### Usage with Web Workers
+
+Aviary can be run in a "web worker" mode, using `Aviary.runWorkers`. This has some limitations:
+
+- Schedulers can only use APIs available in a [worker context](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_contexts)
+- Data passed from schedulers will be copied using `structuredClone()`, which [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope/postMessage) uses for copying data from a worker to the main thread
+<!-- - Analytics module currently does not work in this mode -->
 
 ## Development
 
@@ -105,4 +147,10 @@ To install dependencies:
 
 ```bash
 bun install
+```
+
+To build:
+
+```bash
+bun run build
 ```

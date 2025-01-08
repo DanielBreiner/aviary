@@ -11,6 +11,10 @@ export type Never<TMessage extends string> = 0 extends TMessage
 	: TMessage;
 
 const maxSleep = 2147483647;
+/**
+ * Creates a promise that resolves after a specified number of milliseconds,
+ * or when aborted using an AbortSignal.
+ */
 export function abortableSleep({
 	ms = maxSleep,
 	signal,
@@ -28,6 +32,8 @@ export function abortableSleep({
 }
 
 /**
+ * An asynchronous queue that allows pushing values and iterating over them asynchronously, using the `asyncIterator` protocol
+ *
  * @example for await (const item of queue) ...
  */
 export class AsyncQueue<T> {

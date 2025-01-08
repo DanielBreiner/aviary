@@ -8,6 +8,15 @@ export namespace DefaultSchedule {
 	};
 }
 
+/**
+ * A default implementation of ISchedule.
+ *
+ * Requests are scheduled by date and yielded when their date is reached.
+ *
+ * Schedulers must provide DefaultSchedule.Requested<TScheduled> objects
+ *
+ * @see DefaultSchedule.Requested.
+ */
 export class DefaultSchedule<TScheduled extends Scheduled>
 	implements ISchedule<DefaultSchedule.Requested<TScheduled>, TScheduled>
 {
