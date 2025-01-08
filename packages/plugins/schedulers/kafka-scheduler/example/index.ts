@@ -33,5 +33,3 @@ await Aviary.builder()
 		},
 	})
 	.run();
-
-// TODO pridaj test s producerom
