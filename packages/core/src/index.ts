@@ -8,8 +8,11 @@ export type Requested = NonNullishAny;
 export type Scheduled = NonNullishAny;
 export type Content = NonNullishAny;
 
-export type Logger = {
+export type Logger<TScheduled extends Scheduled = any> = {
 	log: (...args: any[]) => void;
+	reportScheduled?: (scheduled: TScheduled) => void;
+	reportNotifyStart?: (scheduled: TScheduled) => void;
+	reportNotifyEnd?: (content: TScheduled) => void;
 };
 
 export type RequestedOf<T extends IScheduler<any> | ISchedule<any, any>> =
@@ -119,6 +122,7 @@ export class Aviary<
 			schedule: ISchedule<TRequested, TScheduled>
 		) => {
 			const processScheduled = async (scheduled: TScheduled) => {
+				this.logger.reportScheduled?.(scheduled);
 				const contentSource = this.contentSources.find(
 					(cs) => cs.accepts?.(scheduled) ?? true
 				);
@@ -128,7 +132,9 @@ export class Aviary<
 					(n) => n.accepts?.(scheduled, content) ?? true
 				);
 				if (notifier === undefined) return false;
+				this.logger.reportNotifyStart?.(scheduled);
 				await notifier.notify(scheduled, content);
+				this.logger.reportNotifyEnd?.(scheduled);
 				return true;
 			};
 

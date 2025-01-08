@@ -1,13 +1,13 @@
 import type { IScheduler, Requested } from "@aviaryjs/core";
 import { CronJob, CronTime } from "cron";
-import { AsyncQueue } from "@aviaryjs/core/utils";
+import { AsyncQueue, Awaitable } from "@aviaryjs/core/utils";
 
 export class PeriodicScheduler<TRequested extends Requested>
 	implements IScheduler<TRequested>
 {
 	private job: CronJob;
 	private queue = new AsyncQueue<TRequested>();
-	private callback: () => Promise<TRequested | TRequested[]>;
+	private callback: () => Awaitable<TRequested | TRequested[]>;
 
 	private onCronTick = async () => {
 		const scheduled = await this.callback();
@@ -22,7 +22,7 @@ export class PeriodicScheduler<TRequested extends Requested>
 
 	constructor(
 		cron: string,
-		callback: () => Promise<TRequested | TRequested[]>
+		callback: () => Awaitable<TRequested | TRequested[]>
 	) {
 		this.job = new CronJob(cron, this.onCronTick);
 		this.callback = callback;

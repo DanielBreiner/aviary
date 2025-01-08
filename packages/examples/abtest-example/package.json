@@ -1,0 +1,13 @@
+{
+	"name": "@aviaryjs/abtest-example",
+	"version": "*",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@aviaryjs/core": "workspace:*"
+	},
+	"author": "Daniel Breiner <breindan@fit.cvut.cz>",
+	"scripts": {
+		"start": "bun index.ts"
+	}
+}
