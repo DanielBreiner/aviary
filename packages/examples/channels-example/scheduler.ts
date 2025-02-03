@@ -13,14 +13,15 @@ export const scheduler = new WebhookScheduler({
 
 // Scheduler frontend
 
-const page = await Bun.file("scheduler.html").text();
-
 const server = Bun.serve({
 	port: 3002,
-	async fetch(_req) {
-		return new Response(page, {
+	static: {
+		"/": new Response(await Bun.file("scheduler.html").bytes(), {
 			headers: { "Content-Type": "text/html" },
-		});
+		}),
+	},
+	fetch(_req) {
+		return new Response("Not found", { status: 404 });
 	},
 });
 

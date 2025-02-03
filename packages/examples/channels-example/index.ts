@@ -13,14 +13,15 @@ const app = Aviary.builder()
 	.addNotifier(new WebNotifier({ port: 3011, channel: "2" }))
 	.build();
 
-const page = await Bun.file("app.html").text();
-
 const server = Bun.serve({
 	port: 3123,
-	async fetch(_req) {
-		return new Response(page, {
+	static: {
+		"/": new Response(await Bun.file("app.html").bytes(), {
 			headers: { "Content-Type": "text/html" },
-		});
+		}),
+	},
+	fetch(_req) {
+		return new Response("Not found", { status: 404 });
 	},
 });
 

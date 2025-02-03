@@ -4,8 +4,8 @@
 	"private": true,
 	"type": "module",
 	"dependencies": {
-		"@aviaryjs/plugin-webhook-scheduler": "workspace:*",
 		"@aviaryjs/core": "workspace:*",
+		"@aviaryjs/plugin-webhook-scheduler": "workspace:*",
 		"zod": "~3.22.4"
 	},
 	"author": "Daniel Breiner <breindan@fit.cvut.cz>",
